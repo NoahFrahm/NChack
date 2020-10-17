@@ -8,7 +8,7 @@ def main() -> None:
     urls: List[str] = set_up()
     data: Dict[str,List[str]] = crawl(urls)
     for key in data:
-        print(key)
+        print(key, len(key))
 
 
 def filtered(urls: List[str]) -> List[str]:
@@ -56,11 +56,9 @@ def department_courses(link: str) -> Dict[str, List[int]]:
     page = requests.get(link)
     soup = BeautifulSoup(page.content, 'html.parser')
     department = soup.select('h1.page-title')[0].get_text()
+    drop: bool = False
 
-    if '(' in department:
-        department = department.replace('(','')
-
-    blocks: list[str] = soup.select('p.courseblocktitle > strong') #changed here
+    blocks = soup.select('p.courseblocktitle > strong') #changed here
     
     for course in blocks:
         cname: str = course.get_text()
@@ -80,28 +78,17 @@ def department_courses(link: str) -> Dict[str, List[int]]:
     stop: int = len(department) - 1
     abreviation: str = department[start:stop]
     department = department[0:(start - 1)].strip()
+    if '(' in abreviation:
+        abreviation = abreviation[1:4]
 
     # implement search by abreviation vs department, two dicts
     return {abreviation: courses}
 
 
-
-# page = requests.get('https://catalog.unc.edu/courses/arch/')
+# courses: List[str] = []
+# page = requests.get('https://catalog.unc.edu/courses/bcb/')
 # soup = BeautifulSoup(page.content, 'html.parser')
 # department = soup.select('h1.page-title')[0].get_text()
-# blocks = soup.select('p.courseblocktitle > strong')
-# courses: List[str] = []
-
-# course = blocks[0]
-# #for course in blocks:
-# cname: str = course.get_text()
-# p = cname[0:11]
-# courses.append(int(p[6:7]))
-# print(p[6:9])
-
-# start: int = len(department) - 5
-# stop: int = len(department) - 1
-# abreviation: str = department[start:stop]
-# department = department[0:(start - 1)].strip()
+# drop: bool = False
 
 main()
