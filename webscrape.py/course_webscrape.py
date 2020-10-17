@@ -25,8 +25,8 @@ class CourseSpider(scrapy.Spider):
 
     # def parse2(self, response):
     #     """This will get all the course names/numbers from each department."""
-    #     department_name: str = response.xpath()
-    #     course_names: str = response.xpath()
+    #     department_name: str = response.xpath( 'h.page-title::text').extract()
+    #     course_names: str = response.css('div.courseblock > p.courseblocktitle::text').extract()
     #     course_dictionary[department_name] = course_names
 
 course_dictionary: Dict[str,List[str]] = {}
