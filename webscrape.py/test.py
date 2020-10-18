@@ -2,13 +2,21 @@ from abc import abstractmethod
 import requests
 from bs4 import BeautifulSoup
 from typing import List, Dict
+import csv
+import itertools
 
 
 def main() -> None:
     urls: List[str] = set_up()
     data: Dict[str,List[str]] = crawl(urls)
-    for key in data:
-        print(key, len(key))
+    csv_builder(data)
+
+
+def csv_builder(data: Dict[str,List[str]]) -> None:
+    with open("data111.csv", "w") as outfile:
+        writer = csv.writer(outfile)
+        writer.writerow(data.keys())
+        writer.writerows(itertools.zip_longest(*data.values()))
 
 
 def filtered(urls: List[str]) -> List[str]:
@@ -90,5 +98,8 @@ def department_courses(link: str) -> Dict[str, List[int]]:
 # soup = BeautifulSoup(page.content, 'html.parser')
 # department = soup.select('h1.page-title')[0].get_text()
 # drop: bool = False
+
+if __name__ == '__main__':
+    main()
 
 main()
