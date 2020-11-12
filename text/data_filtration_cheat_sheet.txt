@@ -1,0 +1,16 @@
+
+In [1]: import pandas as pd 
+In [2]: df = pd.read_csv('sales.csv', index_col='month') 
+In [3]: df
+Out[3]:    
+
+eggs  salt  spam month 
+Jan     47  12.0    17 
+Feb     110  50.0   31 
+Mar     221  89.0   72 
+Apr      77  87.0   20 
+May     132   NaN   52 
+Jun     205  60.0   55
+
+
+

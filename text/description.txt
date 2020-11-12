@@ -1,0 +1,3 @@
+machine learning for stock predictor on small intervals using ensemble learning
+over fiscal quarters or months
+predict up down, or change by 10 percent margins
